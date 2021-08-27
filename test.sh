@@ -41,8 +41,8 @@ download_unicorn(){
 	read -r nodeId <&1
 	sed -i "s/ID_HERE/$nodeId/" soga.conf
     if ask_if "开启隧道,是否继续？(y/n)"
-       then input_soga
-      else
+     then input_soga
+    else
        sed -i '15 a tunnel_enable=flase' /etc/soga/soga.conf  #绝对路径
     if
     soga start
