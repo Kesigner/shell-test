@@ -32,16 +32,10 @@ input_soga()
 download_unicorn(){
 	echo "正在安装soga . . ."
 	bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/soga/master/install.sh)
-	echo "正在同步时间 . . ."
-	yum install -y ntp
-	systemctl enable ntpd
-	ntpdate -q 0.rhel.pool.ntp.org
-	systemctl restart ntpd
 	echo "正在更新配置文件 . . ."
 	rm -f /etc/soga/soga.conf
 	rm -f /etc/soga/blockList
 	wget -P /etc/soga https://raw.githubusercontent.com/Kesigner/shell-test/master/soga.conf
-	wget -P /etc/soga https://raw.githubusercontent.com/Kesigner/unicorn/main/unicorn-config/blockList
 	cd /etc/soga
 	printf "请输入节点ID："
 	read -r nodeId <&1
@@ -88,7 +82,7 @@ case $N in
   2) start_unicorn ;;
   3) restart_unicorn ;;
   4) soga status ;;
-  5) soga loga ;;
+  5) soga log ;;
   6) add_shenji ;;
   7) exit ;;
   *) echo "Wrong input!" ;;
