@@ -12,14 +12,20 @@ tyblue()
 
 ask_if()
 {
-    local choice=""
-    while [ "$choice" != "y" ] && [ "$choice" != "n" ]
-    do
-        tyblue "$1"
-        read choice
-    done
-    [ $choice == y ] && return 0
-    return 1
+    read -p "开启隧道,是否继续？(y/n)" para
+
+    case $para in 
+    [yY])
+    input_soga
+    ;;
+    [nN])
+    sed -i '15 a tunnel_enable=flase' /etc/soga/soga.conf
+    ;;
+    *)
+    echo "输入错误"
+    exit 1
+    ;;
+    esac # end case
 }
 
 input_soga()
@@ -40,12 +46,8 @@ download_unicorn(){
 	printf "请输入节点ID："
 	read -r nodeId <&1
 	sed -i "s/ID_HERE/$nodeId/" soga.conf
-    if ask_if "开启隧道,是否继续？(y/n)"
-     then input_soga
-    else
-       sed -i '15 a tunnel_enable=flase' /etc/soga/soga.conf  #绝对路径
-    if
-    soga start
+    ask_if
+    soga restart
 	shon_online
 }
 
