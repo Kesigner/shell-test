@@ -40,18 +40,12 @@ download_unicorn(){
 	echo "正在更新配置文件 . . ."
 	rm -f /etc/soga/soga.conf
 	rm -f /etc/soga/blockList
-	wget -P /etc/soga https://raw.githubusercontent.com/Kesigner/unicorn/main/unicorn-config/soga.conf
+	wget -P /etc/soga https://raw.githubusercontent.com/Kesigner/shell-test/master/soga.conf
 	wget -P /etc/soga https://raw.githubusercontent.com/Kesigner/unicorn/main/unicorn-config/blockList
 	cd /etc/soga
 	printf "请输入节点ID："
 	read -r nodeId <&1
 	sed -i "s/ID_HERE/$nodeId/" soga.conf
-	soga start
-    if ask_if "开启隧道,是否继续？(y/n)"
-     then input_soga
-    else
-       sed -i '15 a tunnel_enable=flase' /etc/soga/soga.conf  #绝对路径
-    fi
     soga start
 	shon_online
 }
