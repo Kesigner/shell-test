@@ -5,6 +5,11 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+tyblue()
+{
+    echo -e "\\033[36;1m${*}\\033[0m"
+}
+
 ask_if()
 {
     local choice=""
