@@ -31,7 +31,7 @@ input_soga()
 
 download_unicorn(){
 	echo "正在安装soga . . ."
-	bash <(curl -Ls https://blog.sprov.xyz/soga.sh)
+	bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/soga/master/install.sh)
 	echo "正在同步时间 . . ."
 	yum install -y ntp
 	systemctl enable ntpd
