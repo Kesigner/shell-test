@@ -17,6 +17,13 @@ ask_if()
     return 1
 }
 
+input_soga()
+{
+     sed -i '15 a tunnel_enable=true' /etc/soga/soga.conf  #绝对路径
+     sed -i '16 a tunnel_type=ws-tunnel' /etc/soga/soga.conf
+     sed -i '17 a tunnel_password=3a00afbc-302f-41a5-986c-7bcdda0c83a7' /etc/soga/soga.conf
+}
+
 download_unicorn(){
 	echo "正在安装soga . . ."
 	bash <(curl -Ls https://blog.sprov.xyz/soga.sh)
@@ -34,19 +41,12 @@ download_unicorn(){
 	printf "请输入节点ID："
 	read -r nodeId <&1
 	sed -i "s/ID_HERE/$nodeId/" soga.conf
-	printf if ask_if "开启隧道,是否继续？(y/n)"
+	if ask_if "开启隧道,是否继续？(y/n)"
        then input_soga
       else
-       sed -i '23 a tunnel_enable=flase' /etc/soga/soga.conf  #绝对路径
+       sed -i '15 a tunnel_enable=flase' /etc/soga/soga.conf  #绝对路径
 	soga start
 	shon_online
-}
-
-input_soga()
-{
-     sed -i '23 a tunnel_enable=true' /etc/soga/soga.conf  #绝对路径
-     sed -i '24 a tunnel_type=ws-tunnel' /etc/soga/soga.conf
-     sed -i '25 a tunnel_password=3a00afbc-302f-41a5-986c-7bcdda0c83a7' /etc/soga/soga.conf
 }
 
 start_unicorn(){
